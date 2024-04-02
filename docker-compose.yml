@@ -1,13 +1,22 @@
-version: "3.9"
+version: "3.7"
 
 services:
-  db:
-    platform: linux/x86_64
+
+  database:
+    container_name: postgre
     image: postgres:latest
-    container_name: container-db
+    restart: always
+    platform: linux/x86_64
+    ports:
+      - "5432:5432"
     environment:
       - "POSTGRES_DB=test"
       - "POSTGRES_USER=test"
       - "POSTGRES_PASSWORD=test"
+
+  cache:
+    container_name: redis
+    image: redis:alpine
     ports:
-      - "5432:5432"
+      - "6379:16379"
+

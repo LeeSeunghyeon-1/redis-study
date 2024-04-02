@@ -3,17 +3,18 @@ package domain.account.entity;
 import common.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.boot.autoconfigure.amqp.RabbitConnectionDetails;
 
 import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor
 @Entity
-public class User extends BaseEntity {
+@Table(name = "Account")
+public class Account extends BaseEntity {
     private final static int PHONE_SIZE = 11;
     private final static int NAME_SIZE = 30;
 
@@ -24,16 +25,16 @@ public class User extends BaseEntity {
     private String phone; //전화번호
 
     @Column(nullable = false, length = NAME_SIZE)
-    private String name; //  성명
+    private String name; //성명
+    
+    @Column(nullable = false, length = NAME_SIZE)
+    private String gender; //성별
 
     @Column(nullable = false)
-    private String businessNumber; //사업자등록번호
+    private String subject; //과목명
 
     @Column(nullable = false)
-    private String openDate; //개업일자
-
-    @Column(nullable = false)
-    private String shopName; //상호
+    private String subjectCode; //과목코드
 
     @Column(nullable = false)
     private String userId; //아이디
@@ -50,13 +51,13 @@ public class User extends BaseEntity {
         this.lastFailLogin = date;
     }
     @Builder
-    public User(String email, String phone, String name, RabbitConnectionDetails.Address address, String businessNumber, String openDate, String shopName, String userId, String userPw) {
+    public Account(String email, String phone, String name, String gender, String subject, String subjectCode, String userId, String userPw) {
         this.email = email;
         this.phone = phone;
         this.name = name;
-        this.businessNumber = businessNumber;
-        this.openDate = openDate;
-        this.shopName = shopName;
+        this.gender = gender;
+        this.subject = subject;
+        this.subjectCode = subjectCode;
         this.userId = userId;
         this.userPw = userPw;
         this.failCount = 0;

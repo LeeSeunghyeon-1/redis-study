@@ -2,22 +2,26 @@ spring:
   application:
     name: study
   datasource:
+# TODO 작동 확인 후 변경할 것
 #    url: jdbc:postgresql://${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DATABASE}=false
 #    username: ${POSTGRES_USERNAME}
 #    password: ${POSTGRES_PASSWORD}
-    driverClassName: org.postgresql.Driver
+    driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://127.0.0.1:5432/test
     username: test
     password: test
-#  data:
-#    redis:
-#      port: 16379
-#      host: bubaum.dev
+  data:
+    redis:
+      port: 16379
+      host: bubaum.dev
+      password: NdTmsXFaYuT4H7x
+  cache:
+    type: redis
   jpa:
     properties:
+      database: postgresql
       hibernate:
         ddl-auto: update
         id:
           new_generator_mappings: false
         dialect: org.hibernate.dialect.PostgreSQLDialect
-        default_schema: public
