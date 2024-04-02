@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: study
+  datasource:
+#    url: jdbc:postgresql://${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DATABASE}=false
+#    username: ${POSTGRES_USERNAME}
+#    password: ${POSTGRES_PASSWORD}
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://127.0.0.1:5432/test
+    username: test
+    password: test
+#  data:
+#    redis:
+#      port: 16379
+#      host: bubaum.dev
+  jpa:
+    properties:
+      hibernate:
+        ddl-auto: update
+        id:
+          new_generator_mappings: false
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        default_schema: public
