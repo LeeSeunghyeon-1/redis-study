@@ -21,7 +21,7 @@ spring:
     properties:
       database: postgresql
       hibernate:
-        ddl-auto: update
+        ddl-auto: update #create..
         id:
           new_generator_mappings: false
         dialect: org.hibernate.dialect.PostgreSQLDialect
