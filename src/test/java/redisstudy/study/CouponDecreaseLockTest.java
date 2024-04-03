@@ -2,6 +2,7 @@ package redisstudy.study;
 
 import domain.coupon.entity.Coupon;
 import domain.coupon.repository.CouponRepository;
+import domain.coupon.service.CouponDecreaseService;
 import domain.coupon.service.CouponService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,6 +10,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
@@ -17,12 +20,16 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("Redisson Lock 쿠폰 차감 테스트")
 @SpringBootTest
+@Transactional
+@ContextConfiguration(classes = {CouponService.class, CouponRepository.class})
 class CouponDecreaseLockTest {
-    @Autowired
-    private CouponService couponService;
 
     @Autowired
     private CouponRepository couponRepository;
+
+    @Autowired
+    private CouponService couponService;
+
 
     private Coupon coupon;
 

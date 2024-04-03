@@ -3,10 +3,10 @@ package domain.coupon.service;
 import domain.coupon.entity.Coupon;
 import domain.coupon.repository.CouponRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import redis.DistributeLock;
 
-@Component
+@Service
 @RequiredArgsConstructor
 public class CouponDecreaseService {
     private final CouponRepository couponRepository;
