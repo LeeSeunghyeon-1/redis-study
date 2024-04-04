@@ -10,7 +10,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableJpaAuditing
 @EnableCaching //@Cacheable과 같은 캐싱 어노테이션의 사용을 인식하기 위함
 @SpringBootApplication
-//@EntityScan(basePackages = {"com.example.study.domain.coupon.entity"})
+//@EntityScan(basePackages = "domain.coupon.entity")
+@EntityScan(basePackages = "domain")
 //@EnableJpaRepositories(basePackages = {"com.example.study.domain.coupon.repository"})
 public class StudyApplication {
 
