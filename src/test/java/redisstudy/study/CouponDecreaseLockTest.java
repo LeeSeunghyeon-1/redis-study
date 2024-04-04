@@ -2,7 +2,6 @@ package redisstudy.study;
 
 import domain.coupon.entity.Coupon;
 import domain.coupon.repository.CouponRepository;
-import domain.coupon.service.CouponDecreaseService;
 import domain.coupon.service.CouponService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
