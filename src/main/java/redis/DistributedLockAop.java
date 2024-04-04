@@ -23,6 +23,7 @@ public class DistributedLockAop {
     //Redis 기반의 분산 객체 및 서비스 제공을 위함
     private final RedissonClient redissonClient;
 
+    //DistributeLock 어노테이션을 사용한 메소드에 대한 AOP 설정
     @Around("@annotation(redis.DistributeLock)")
     public Object lock(final ProceedingJoinPoint joinPoint) throws Throwable {
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();

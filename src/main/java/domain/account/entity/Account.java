@@ -12,9 +12,9 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Entity
-@Table(name = "Account")
+//@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
+@Entity(name = "account")
 public class Account extends BaseEntity {
     private final static int PHONE_SIZE = 11;
     private final static int NAME_SIZE = 30;

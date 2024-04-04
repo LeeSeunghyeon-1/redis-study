@@ -3,10 +3,12 @@ package domain.coupon.service;
 import domain.coupon.entity.Coupon;
 import domain.coupon.repository.CouponRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import redis.DistributeLock;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class CouponService {
 

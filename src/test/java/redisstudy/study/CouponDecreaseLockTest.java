@@ -17,11 +17,17 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import static org.assertj.core.api.Assertions.assertThat;
 
-@DisplayName("Redisson Lock 쿠폰 차감 테스트")
 @SpringBootTest
 @Transactional
+@DisplayName("Redisson Lock 쿠폰 차감 테스트")
 @ContextConfiguration(classes = {CouponService.class, CouponRepository.class})
 class CouponDecreaseLockTest {
+
+    /**
+     * 시나리오 : 동시성 테스트를 위한 쿠폰 차감 테스트
+     * 방법 : 100명의 사용자가 동시에 쿠폰을 차감하는 테스트
+     * 기대 : 100명의 사용자가 동시에 쿠폰을 차감해도 쿠폰 재고가 0이 되어야 한다.
+     */
 
     @Autowired
     private CouponRepository couponRepository;

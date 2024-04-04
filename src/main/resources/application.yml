@@ -1,15 +1,15 @@
 spring:
-  application:
-    name: study
   datasource:
-# TODO 작동 확인 후 변경할 것
-#    url: jdbc:postgresql://${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DATABASE}=false
-#    username: ${POSTGRES_USERNAME}
-#    password: ${POSTGRES_PASSWORD}
-    driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://127.0.0.1:5432/test
-    username: test
-    password: test
+#    url: jdbc:mysql://127.0.0.1:3310/test?useSSL=false&allowPublicKeyRetrieval=true
+#    username: test
+#    password: test
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${MYSQL_HOST}:${MYSQL_PORT}/${MYSQL_DATABASE}?characterEncoding=UTF-8&serverTimezone=UTC
+    username: ${MYSQL_USERNAME}
+    password: ${MYSQL_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: create #create-drop....
   data:
     redis:
       port: 16379
@@ -17,13 +17,8 @@ spring:
       password: NdTmsXFaYuT4H7x
   cache:
     type: redis
-  jpa:
-    properties:
-      database: postgresql
-      hibernate:
-        ddl-auto: create #create..
-        id:
-          new_generator_mappings: false
 logging:
   level:
+#    org.hibernate.SQL: DEBUG
+#    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
     org.springframework.boot.autoconfigure: OFF
