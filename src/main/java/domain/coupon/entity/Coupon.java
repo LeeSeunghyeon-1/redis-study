@@ -4,9 +4,11 @@ import common.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @NoArgsConstructor
 @Getter
+@Setter
 @Entity(name = "coupon")
 public class Coupon extends BaseEntity {
 

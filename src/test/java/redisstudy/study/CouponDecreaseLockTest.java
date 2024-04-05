@@ -8,7 +8,9 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +24,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 @SpringBootTest
 @Transactional
 @DisplayName("Redisson Lock 쿠폰 차감 테스트")
+@ExtendWith(MockitoExtension.class)
 @Slf4j
 class CouponDecreaseLockTest {
 
@@ -34,7 +37,7 @@ class CouponDecreaseLockTest {
     @MockBean
     private CouponRepository couponRepository;
 
-    @MockBean
+    @InjectMocks
     private CouponService couponService;
 
 
@@ -43,7 +46,8 @@ class CouponDecreaseLockTest {
     @BeforeEach
     void setUp() {
         coupon = new Coupon("할인쿠폰(100명 한정)", 100L);
-        couponRepository.save(coupon);
+//        couponRepository.save(coupon); //기존 코드
+        coupon = couponRepository.save(coupon); //데이터베이스에 저장 후 저장돈 객체 반환
     }
 
     @AfterEach
@@ -55,6 +59,7 @@ class CouponDecreaseLockTest {
     void 쿠폰차감_동시성_100명_테스트() throws InterruptedException {
         int numberOfThreads = 100;
         ExecutorService executorService = Executors.newFixedThreadPool(32);
+
         CountDownLatch latch = new CountDownLatch(numberOfThreads);
 
         for (int i=0; i<numberOfThreads; i++) {
@@ -71,7 +76,8 @@ class CouponDecreaseLockTest {
         latch.await();
 
         Coupon persistCoupon = couponRepository.findById(coupon.getId())
-                .orElseThrow(IllegalArgumentException::new);
+//                .orElseThrow(IllegalArgumentException::new);
+                .orElseThrow(() -> new IllegalArgumentException("100개 소진 완료,,,,! 쿠폰이 존재하지 않습니다."));
 
         assertThat(persistCoupon.getAvailableStock()).isZero();
     }
