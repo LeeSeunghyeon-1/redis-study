@@ -3,24 +3,26 @@ package redisstudy.study;
 import domain.coupon.entity.Coupon;
 import domain.coupon.repository.CouponRepository;
 import domain.coupon.service.CouponService;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import static org.assertj.core.api.Assertions.assertThat;
+
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @SpringBootTest
 @Transactional
 @DisplayName("Redisson Lock 쿠폰 차감 테스트")
-@ContextConfiguration(classes = {CouponService.class, CouponRepository.class})
+@Slf4j
 class CouponDecreaseLockTest {
 
     /**
@@ -29,10 +31,10 @@ class CouponDecreaseLockTest {
      * 기대 : 100명의 사용자가 동시에 쿠폰을 차감해도 쿠폰 재고가 0이 되어야 한다.
      */
 
-    @Autowired
+    @MockBean
     private CouponRepository couponRepository;
 
-    @Autowired
+    @MockBean
     private CouponService couponService;
 
 
@@ -59,6 +61,7 @@ class CouponDecreaseLockTest {
             executorService.submit(() -> {
                 try {
                     couponService.decrease(coupon.getId());
+                    log.info("쿠폰 잔여 개수 : {}", coupon.getAvailableStock());
                 } finally {
                     latch.countDown();
                 }

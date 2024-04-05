@@ -18,13 +18,14 @@ import java.lang.reflect.Method;
 public class DistributedLockAop {
     private static final String REDISSON_KEY_PREFIX = "RLOCK_";
 
-    //AOP 이용해서 트랜잭션 분리를 위함
+    //CHECK ) AOP 이용해서 트랜잭션 분리를 위함
     private final AopForTransaction aopForTransaction;
-    //Redis 기반의 분산 객체 및 서비스 제공을 위함
+    //CHECK ) Redis 기반의 분산 객체 및 서비스 제공을 위함
     private final RedissonClient redissonClient;
 
-    //DistributeLock 어노테이션을 사용한 메소드에 대한 AOP 설정
-    @Around("@annotation(redis.DistributeLock)")
+    //CHECK ) DistributeLock 어노테이션을 사용한 메소드에 대한 AOP 설정
+    @Around("@annotation(redis.DistributeLock)") //NOTE 1) 어노테이션 명시 방법
+//    @Around("execution(* redis.DistributedLockAop.lock(..))") //NOTE 2) 패키지 경로 명시 방법
     public Object lock(final ProceedingJoinPoint joinPoint) throws Throwable {
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         Method method = signature.getMethod();

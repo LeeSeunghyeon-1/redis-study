@@ -1,18 +1,14 @@
 package domain.coupon.entity;
 
+import common.BaseEntity;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @Getter
 @Entity(name = "coupon")
-public class Coupon {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Coupon extends BaseEntity {
 
     private String name;
 
