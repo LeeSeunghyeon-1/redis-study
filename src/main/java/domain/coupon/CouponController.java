@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class CouponController {
     private final CouponService couponService;
 
-    @PostMapping("/decrease")
-    public void decrease(Long couponId) {
-        couponService.decrease(couponId);
-    }
+//    @PostMapping("/decrease")
+//    public void decrease(Long couponId) {
+//        couponService.decrease(couponId);
+//    }
 
 }

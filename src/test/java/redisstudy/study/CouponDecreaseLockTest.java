@@ -11,6 +11,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.concurrent.*;
 
@@ -46,17 +47,19 @@ class CouponDecreaseLockTest {
     }
 
     @Test
+    @Transactional
     void 쿠폰차감_동시성100명_테스트() throws InterruptedException {
         int numberOfThreads = 100;
         ExecutorService executorService = Executors.newFixedThreadPool(32);
         CountDownLatch latch = new CountDownLatch(numberOfThreads);
 
         for (int i = 0; i < numberOfThreads; i++) {
+            int finalI = i;
             executorService.submit(() -> {
                 try {
                     // 각 스레드에서는 동일한 쿠폰을 참조하여 차감
                     couponDecreaseService.couponDecrease("할인 쿠폰(100명 한정)", coupon.getId());
-                    log.info("쿠폰의 개수 : {} // ID 확인 : {}", coupon.getAvailableStock(), coupon.getId());
+                    log.info("{}번째의 쿠폰의 개수 : {} // ID 확인 : {}", finalI,coupon.getAvailableStock(), coupon.getId());
                 } finally {
                     latch.countDown();
                 }
