@@ -1,28 +1,29 @@
 package domain.coupon.entity;
 
-import common.BaseEntity;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@NoArgsConstructor
 @Getter
 @Setter
 @Entity(name = "coupon")
-public class Coupon extends BaseEntity {
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class Coupon {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String name;
 
+    //NOTE ) 쿠폰의 잔여개수 (test : 100개)
     private Long availableStock;
 
     public Coupon(String name, Long availableStock) {
         this.name = name;
         this.availableStock = availableStock;
-    }
-
-    public static Coupon of(String name, Long availableStock) {
-        return new Coupon(name, availableStock);
     }
 
     public void decrease() {

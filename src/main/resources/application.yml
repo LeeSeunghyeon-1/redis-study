@@ -9,11 +9,13 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update #create-drop....
+      show-sql: true
   data:
     redis:
-      port: 16379
-      host: bubaum.dev
-      password: NdTmsXFaYuT4H7x
+      port: 6379
+      host: 127.0.0.1
+#      username: default
+#      password: NdTmsXFaYuT4H7x
   cache:
     type: redis
 logging:
