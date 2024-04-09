@@ -1,5 +1,6 @@
 package domain.coupon.entity;
 
+import common.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -21,7 +22,6 @@ public class Coupon {
 
     private String name;
 
-    //NOTE ) 쿠폰의 잔여개수 (test : 100개)
     private Long availableStock;
 
     public Coupon(String name, Long availableStock) {
@@ -29,7 +29,7 @@ public class Coupon {
         this.availableStock = availableStock;
     }
 
-    @Transactional
+
     public void decrease() {
         log.info("감소 여부 확인 =======> {}", availableStock);
         validateStockCount();

@@ -19,6 +19,7 @@ public class RedisConfig {
     public int port;
 
     private static final String REDISSON_HOST_PREFIX = "redis://";
+
     @Bean
     public RedissonClient redissonClient() {
         Config config = new Config();
