@@ -14,7 +14,7 @@ public class CouponService {
 
     public void decrease(Long couponId) {
         String key = COUPON_KEY_PREFIX + couponId;
+        log.info("key_name : {}", key);
         couponDecreaseService.couponDecrease(key, couponId);
-
     }
 }

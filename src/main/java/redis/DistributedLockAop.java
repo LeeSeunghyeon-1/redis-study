@@ -10,7 +10,11 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.redisson.api.RLock;
+import redis.AopForTransaction;
+import redis.DistributeLock;
+
 import java.lang.reflect.Method;
+
 
 @Slf4j
 @Order(1)
@@ -29,6 +33,7 @@ public class DistributedLockAop {
 //    @Around("execution(* redis.DistributedLockAop.lock(..))") //NOTE 2) 패키지 경로 명시 방법
     @Around("@annotation(redis.DistributeLock)") //NOTE 1) 어노테이션 명시 방법
     public Object lock(final ProceedingJoinPoint joinPoint) throws Throwable {
+       log.info("lock 진입 여부 확인");
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         Method method = signature.getMethod();
 
