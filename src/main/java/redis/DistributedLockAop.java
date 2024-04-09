@@ -57,11 +57,12 @@ public class DistributedLockAop {
                     distributeLock.waitTime(),
                     distributeLock.leaseTime(),
                     distributeLock.timeUnit());
-            log.info("available 값 확인 ==============> {}", available);
+            log.info("초기 available 확인 ==============> {}", available);
             if (!available) {
                 log.info("available 값 확인 ==============> {}", available);
                 return false;
             }
+            log.info("if 처리 후 available 값 확인 ==============> {}", available);
             //@DistributeLock 이 선언된 메소드의 로직 수행 (별도 트랜잭션을 분리)
             return aopForTransaction.proceed(joinPoint);
         } catch (InterruptedException e) {
